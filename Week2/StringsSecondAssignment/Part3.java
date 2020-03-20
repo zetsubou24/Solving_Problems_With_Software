@@ -19,10 +19,6 @@ public class Part3 {
         int tagStopIndex = findStopCodon(dna,startIndex,"TAG");
         int tgaStopIndex = findStopCodon(dna,startIndex,"TGA");
 
-        if(taaStopIndex == -1) taaStopIndex = dna.length();
-        if(tagStopIndex == -1) tagStopIndex = dna.length();
-        if(tgaStopIndex == -1) tgaStopIndex = dna.length();
-
         int minIndex = Math.min(taaStopIndex,Math.min(tagStopIndex,tgaStopIndex));
         if(minIndex < dna.length()) return dna.substring(startIndex,minIndex + 3);
         else return "";
@@ -42,6 +38,7 @@ public class Part3 {
         int count = 0;
         while(startIndex != -1){
             String gene = findGene(dna.substring(startIndex));
+            if(gene.equals("")) return 0;
             count += 1;
             startIndex = dna.indexOf("ATG",startIndex + gene.length());
         }
@@ -51,6 +48,8 @@ public class Part3 {
     public void testCountGenes(){
         System.out.println(countGenes("ATGTAAGATGCCCTAGT”"));
         System.out.println(countGenes("ATGGAATTATAAATGGAATTATGAATGGAATTATAG"));
+        System.out.println(countGenes("ATGFGHTAAUHGATGCHGTAGATGKGHTGA"));
+        System.out.println(countGenes("ATGFHTAAUHGATGCHGTAGATGKGHTGA"));
     }
 
     public static void main(String[] args) {
